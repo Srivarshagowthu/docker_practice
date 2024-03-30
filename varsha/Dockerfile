@@ -1,9 +1,8 @@
-# Use Node.js LTS version as base image
-FROM node:lts AS development
+# Use the official lightweight Node.js 14 image
+FROM node:14-alpine
 
-# Set working directory
+# Set the working directory inside the container
 WORKDIR /src
-
 # Copy package.json and package-lock.json
 COPY package*.json ./
 
@@ -13,8 +12,11 @@ RUN npm install
 # Copy the rest of the application code
 COPY . ./
 
-# Expose the port the app runs on (default is 5173 for React)
-EXPOSE 5173
+# Build the React app
+RUN npm run build
 
-# Command to start the development server
-CMD ["npm", "run", "dev"]
+# Expose port 3000 to the outside world
+EXPOSE 3000
+
+# Run the React app
+CMD ["npm", "start"]
