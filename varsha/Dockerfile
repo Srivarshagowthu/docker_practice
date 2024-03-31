@@ -1,8 +1,8 @@
 # Use the official lightweight Node.js 14 image
-FROM node:14-alpine
+FROM node:20-alpine
 
 # Set the working directory inside the container
-WORKDIR /src
+WORKDIR /app
 # Copy package.json and package-lock.json
 COPY package*.json ./
 
@@ -10,13 +10,13 @@ COPY package*.json ./
 RUN npm install
 
 # Copy the rest of the application code
-COPY . ./
+COPY . .
 
 # Build the React app
-RUN npm run build
+
 
 # Expose port 3000 to the outside world
-EXPOSE 5173
+EXPOSE 3000
 
 # Run the React app
-CMD ["npm", "start"]
+CMD ["npm", "start","dev"]
